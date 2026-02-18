@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CV – Ali Kasse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0f0d;
+      --surface: #111a14;
+      --accent: #4caf7d;
+      --accent2: #80c9a0;
+      --text: #e8f0ea;
+      --muted: #7a9982;
+      --border: #1e2e22;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 8vw 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -20%; right: -15%;
+      width: 650px; height: 650px;
+      background: radial-gradient(circle, rgba(76,175,125,0.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .id-card {
+      position: absolute;
+      top: 3rem; right: 8vw;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 1.2rem 1.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 2.1;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 1s forwards;
+    }
+    .id-card strong { color: var(--text); font-weight: 500; }
+
+    .tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 8.5vw, 7.5rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+    h1 span { color: var(--accent); }
+
+    .subtitle {
+      margin-top: 1.2rem;
+      font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+      color: var(--muted);
+      font-style: italic;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.6s forwards;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem 2rem;
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.8s forwards;
+    }
+    .contact-row a, .contact-row span {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s;
+    }
+    .contact-row a:hover { color: var(--accent); }
+    .contact-row .dot { color: var(--accent); }
+
+    main {
+      padding: 0 8vw;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    section.visible { opacity: 1; transform: none; }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .section-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--border);
+      line-height: 1;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      padding-bottom: 0.15rem;
+    }
+
+    .about-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      line-height: 1.85;
+      max-width: 780px;
+    }
+    .about-text span { color: var(--accent); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1rem;
+    }
+    .skill-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.1rem 1.4rem;
+      border-radius: 5px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .skill-item:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .skill-cat {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .skill-name { font-size: 0.92rem; font-weight: 500; margin-bottom: 0.6rem; }
+    .skill-bar { height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      width: 0;
+      transition: width 1.3s ease;
+    }
+    section.visible .skill-fill { width: var(--pct); }
+
+    .timeline { display: flex; flex-direction: column; gap: 2.2rem; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 2rem;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 160px; top: 0; bottom: -2.2rem;
+      width: 1px;
+      background: var(--border);
+    }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-date {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding-top: 0.35rem;
+      text-align: right;
+    }
+    .timeline-content {
+      padding-left: 2rem;
+      position: relative;
+    }
+    .timeline-content::before {
+      content: '';
+      position: absolute;
+      left: -4px; top: 10px;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(76,175,125,0.5);
+    }
+    .timeline-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+    }
+    .timeline-content .company { color: var(--muted); font-size: 0.88rem; margin-bottom: 0.6rem; }
+    .timeline-content p { font-size: 0.93rem; color: #99b09e; }
+
+    .exp-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .exp-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.1rem 1.4rem;
+      border-radius: 5px;
+      font-size: 0.93rem;
+      transition: border-color 0.3s;
+    }
+    .exp-item:hover { border-color: var(--accent); }
+    .exp-item::before { content: '◆'; color: var(--accent); font-size: 0.5rem; margin-top: 0.52rem; flex-shrink: 0; }
+
+    footer {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 700px) {
+      .id-card { display: none; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .timeline-item::before { display: none; }
+      .timeline-date { text-align: left; }
+      .timeline-content { padding-left: 0; }
+      .timeline-content::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <p class="tag">Curriculum Vitae · Géomatique</p>
+  <h1>Ali<br/><span>Kasse</span></h1>
+  <p class="subtitle">Étudiant en BTS Géomatique — SIG · Photogrammétrie · Cartographie</p>
+  <div class="contact-row">
+    <a href="mailto:alikasse156@gmail.com"><span class="dot">✉</span> alikasse156@gmail.com</a>
+    <a href="tel:+221779547547"><span class="dot">☏</span> +221 77 954 75 47</a>
+    <span><span class="dot">◎</span> Dakar, Sénégal</span>
+  </div>
+
+  <div class="id-card">
+    <div><strong>Date de naissance</strong>&nbsp;&nbsp;15 septembre 2007</div>
+    <div><strong>Nationalité</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sénégalaise</div>
+    <div><strong>Formation actuelle</strong>&nbsp;&nbsp;BTS Géomatique — CEDT</div>
+  </div>
+</header>
+
+<main>
+
+  <section id="about">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">À propos</h2>
+    </div>
+    <p class="about-text">
+      Étudiant passionné par les <span>sciences géographiques et les technologies spatiales</span>,
+      je me spécialise en Géomatique au CEDT de Dakar. Curieux et rigoureux,
+      j'allie travail de terrain et maîtrise des outils SIG pour produire des données
+      géographiques fiables et des <span>cartographies thématiques</span> de qualité.
+    </p>
+  </section>
+
+  <section id="education">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Formation</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-date">2024 – 2026</span>
+        <div class="timeline-content">
+          <h3>BTS en Géomatique</h3>
+          <p class="company">CEDT — Dakar, Sénégal</p>
+          <p>Formation spécialisée en Systèmes d'Information Géographique, cartographie, télédétection et photogrammétrie.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2021 – 2024</span>
+        <div class="timeline-content">
+          <h3>Baccalauréat — Série L2</h3>
+          <p class="company">Lycée Khadimou Rassoul — Sénégal</p>
+          <p>Obtention du baccalauréat littéraire série L2.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2018 – 2021</span>
+        <div class="timeline-content">
+          <h3>Diplôme du BFEM</h3>
+          <p class="company">Collège Saldia — Sénégal</p>
+          <p>Brevet de Fin d'Études Moyennes obtenu avec succès.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Expériences pratiques</h2>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item">Réalisation de cartes thématiques avec QGIS dans le cadre de projets académiques.</div>
+      <div class="exp-item">Collecte de données GPS sur le terrain pour l'alimentation de bases de données géographiques.</div>
+      <div class="exp-item">Participation à la mise à jour de plusieurs bases de données géographiques.</div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Compétences</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <p class="skill-cat">SIG</p>
+        <p class="skill-name">QGIS</p>
+        <div class="skill-bar"><div class="skill-fill" style="--pct:85%"></div></div>
+      </div>
+      <div class="skill-item">
+        <p class="skill-cat">SIG</p>
+        <p class="skill-name">ArcGIS</p>
+        <div class="skill-bar"><div class="skill-fill" style="--pct:70%"></div></div>
+      </div>
+      <div class="skill-item">
+        <p class="skill-cat">Photogrammétrie</p>
+        <p class="skill-name">Agisoft Metashape</p>
+        <div class="skill-bar"><div class="skill-fill" style="--pct:65%"></div></div>
+      </div>
+      <div class="skill-item">
+        <p class="skill-cat">Photogrammétrie</p>
+        <p class="skill-name">DroneDeploy</p>
+        <div class="skill-bar"><div class="skill-fill" style="--pct:60%"></div></div>
+      </div>
+      <div class="skill-item">
+        <p class="skill-cat">Bureautique</p>
+        <p class="skill-name">Word · Excel · PowerPoint</p>
+        <div class="skill-bar"><div class="skill-fill" style="--pct:80%"></div></div>
+      </div>
+      <div class="skill-item">
+        <p class="skill-cat">Programmation</p>
+        <p class="skill-name">SQL · Python (notions)</p>
+        <div class="skill-bar"><div class="skill-fill" style="--pct:40%"></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 Ali Kasse · Dakar, Sénégal · alikasse156@gmail.com</p>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('section');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>
